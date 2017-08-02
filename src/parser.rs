@@ -12,12 +12,12 @@ use object::{
 use std::path::Path;
 
 bitflags! {
-    flags Flags: i32 {
-        const DEFAULT            = 0x0,
-        const LOWERCASE          = 0x1,
-        const ZEROCOPY           = 0x2,
-        const NO_TIME            = 0x4,
-        const NO_IMPLICIT_ARRAYS = 0x8
+    pub struct Flags: i32 {
+        const DEFAULT            = 0x0;
+        const LOWERCASE          = 0x1;
+        const ZEROCOPY           = 0x2;
+        const NO_TIME            = 0x4;
+        const NO_IMPLICIT_ARRAYS = 0x8;
     }
 }
 
