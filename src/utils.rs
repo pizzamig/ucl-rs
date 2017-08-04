@@ -1,6 +1,5 @@
 use libc::c_char;
 
-use std::str;
 use std::ffi::{
     CString,
     CStr
@@ -32,6 +31,7 @@ mod tests {
 		assert_eq!( back, Some(test_str.to_string()));
 	}
 
+	#[test]
 	fn test_to_c_str_2() {
 		let rc = to_c_str( "LOL2".to_string() );
 
