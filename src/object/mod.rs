@@ -172,7 +172,7 @@ impl Object {
         if self.get_type() != Type::Object { return None }
 
         unsafe {
-            let out = ucl_object_find_key(self.obj, utils::to_c_str(key.as_ref()));
+            let out = ucl_object_find_key(self.obj, utils::to_c_str(key.as_ref()).as_ptr());
 
             Object::from_cptr(out)
         }
@@ -192,7 +192,7 @@ impl Object {
         if self.get_type() != Type::Object { return None }
 
         unsafe {
-            let out = ucl_lookup_path(self.obj, utils::to_c_str(path.as_ref()));
+            let out = ucl_lookup_path(self.obj, utils::to_c_str(path.as_ref()).as_ptr());
 
             Object::from_cptr(out)
         }

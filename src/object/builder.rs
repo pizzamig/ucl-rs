@@ -65,7 +65,7 @@ impl From<String> for Builder {
         use libucl_sys::ucl_object_fromlstring;
 
         let len = val.len();
-        Builder::from_ptr(unsafe { ucl_object_fromlstring(utils::to_c_str(val), len as libc::size_t) }).unwrap()
+        Builder::from_ptr(unsafe { ucl_object_fromlstring(utils::to_c_str(val).as_ptr(), len as libc::size_t) }).unwrap()
     }
 }
 

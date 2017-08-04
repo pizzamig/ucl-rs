@@ -12,12 +12,12 @@ use object::{
 use std::path::Path;
 
 bitflags! {
-    flags Flags: i32 {
-        const DEFAULT            = 0x0,
-        const LOWERCASE          = 0x1,
-        const ZEROCOPY           = 0x2,
-        const NO_TIME            = 0x4,
-        const NO_IMPLICIT_ARRAYS = 0x8
+    pub struct Flags: i32 {
+        const DEFAULT            = 0x0;
+        const LOWERCASE          = 0x1;
+        const ZEROCOPY           = 0x2;
+        const NO_TIME            = 0x4;
+        const NO_IMPLICIT_ARRAYS = 0x8;
     }
 }
 
@@ -66,9 +66,10 @@ impl Parser {
     /// assert!(ucl::Parser::new().parse("a = b").is_ok());
     /// assert!(ucl::Parser::new().parse("a =").is_err());
     /// ```
-    pub fn parse<T: AsRef<str>>(mut self, string: T) -> Result<Object> {
-        let len = string.as_ref().len() as size_t;
-        let result = unsafe { ucl_parser_add_chunk(self.parser, utils::to_c_str(string), len) };
+    pub fn parse<T: Into<Vec<u8>>>(mut self, string: T) -> Result<Object> {
+        let tempvec = string.into();
+        let len = tempvec.len() as size_t;
+        let result = unsafe { ucl_parser_add_chunk(self.parser, utils::to_c_str(tempvec).as_ptr(), len) };
 
         if result {
             Ok(self.get_object().unwrap())
@@ -82,7 +83,7 @@ impl Parser {
     /// It moves out `Parser`.
     pub fn parse_file<T: AsRef<Path>>(mut self, path: T) -> Result<Object> {
         let filename = path.as_ref().to_str().unwrap();
-        let result = unsafe { ucl_parser_add_file(self.parser, utils::to_c_str(filename)) };
+        let result = unsafe { ucl_parser_add_file(self.parser, utils::to_c_str(filename).as_ptr()) };
 
         if result {
             Ok(self.get_object().unwrap())
@@ -104,7 +105,7 @@ impl Parser {
     /// ```
     pub fn register_var(&self, name: String, value: String) {
         unsafe {
-            ucl_parser_register_variable(self.parser, utils::to_c_str(name), utils::to_c_str(value))
+            ucl_parser_register_variable(self.parser, utils::to_c_str(name).as_ptr(), utils::to_c_str(value).as_ptr())
         }
     }
 
