@@ -14,7 +14,4 @@ unstable = [] # in case of nightly build
 [dependencies]
 libc = "*"
 bitflags = ">=0.9"
-
-[dependencies.libucl-sys]
-path = "../libucl-sys"
-version = "*"
+libucl-sys = { git = "https://github.com/pizzamig/libucl-sys", branch = "2.0.x" }
