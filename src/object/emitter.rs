@@ -9,7 +9,9 @@ pub enum Emitter {
     JSON,
     JSONCompact,
     Config,
-    YAML
+    YAML,
+	MSGPACK,
+	MAX
 }
 
 impl Emitter {
@@ -26,6 +28,8 @@ impl From<ucl_emitter> for Emitter {
             ucl_emitter::UCL_EMIT_JSON_COMPACT => Emitter::JSONCompact,
             ucl_emitter::UCL_EMIT_CONFIG       => Emitter::Config,
             ucl_emitter::UCL_EMIT_YAML         => Emitter::YAML,
+            ucl_emitter::UCL_EMIT_MSGPACK      => Emitter::MSGPACK,
+            ucl_emitter::UCL_EMIT_MAX          => Emitter::MAX
         }
     }
 }
@@ -36,7 +40,9 @@ impl Into<ucl_emitter> for Emitter {
             Emitter::JSON        => ucl_emitter::UCL_EMIT_JSON,
             Emitter::JSONCompact => ucl_emitter::UCL_EMIT_JSON_COMPACT,
             Emitter::Config      => ucl_emitter::UCL_EMIT_CONFIG,
-            Emitter::YAML        => ucl_emitter::UCL_EMIT_YAML
+            Emitter::YAML        => ucl_emitter::UCL_EMIT_YAML,
+            Emitter::MSGPACK     => ucl_emitter::UCL_EMIT_MSGPACK,
+            Emitter::MAX         => ucl_emitter::UCL_EMIT_MAX
         }
     }
 }
