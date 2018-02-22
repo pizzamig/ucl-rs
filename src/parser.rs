@@ -45,7 +45,7 @@ impl Parser {
     /// # Examples
     ///
     /// ```rust
-    /// let parser = ucl::Parser::with_flags(ucl::parser::LOWERCASE);
+    /// let parser = ucl::Parser::with_flags(ucl::parser::Flags::LOWERCASE);
     /// let doc = parser.parse("A = b").unwrap();
     ///
     /// assert!(doc.fetch("a").is_some());
@@ -159,12 +159,12 @@ mod test {
     #[test]
     fn flags() {
         let s = r#"LoL = 10"#;
-        let p = Parser::with_flags(DEFAULT);
+        let p = Parser::with_flags(Flags::DEFAULT);
         let res = p.parse(s).unwrap();
 
         assert!(res.fetch("lol").is_none());
 
-        let p = Parser::with_flags(LOWERCASE);
+        let p = Parser::with_flags(Flags::LOWERCASE);
         let res = p.parse(s).unwrap();
 
         assert_eq!(res.fetch("lol").unwrap().as_int(), Some(10));
