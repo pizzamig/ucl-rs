@@ -28,7 +28,7 @@ pub struct Parser {
 impl Parser {
     /// Create new parser instance with default options
     pub fn new() -> Self {
-        Self::with_flags(DEFAULT)
+        Self::with_flags(Flags::DEFAULT)
     }
 
     /// Create new parser with given option flags
